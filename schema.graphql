@@ -1,19 +1,20 @@
 type Query {
-  books: [Book]
+  users: [User]
 }
 
-type Book {
-  title: String
-  author: String
+type User {
+  id: ID!
+  name: String!
+  roles: [String]
 }
 
 type AddBookMutationResponse {
   code: String!
   success: Boolean!
   message: String!
-  book: Book
+  user: User
 }
 
 type Mutation {
-  addBook(title: String, author: String): AddBookMutationResponse
+  addUser(name: String): AddUserMutationResponse
 }

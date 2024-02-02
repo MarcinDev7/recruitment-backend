@@ -5,6 +5,8 @@ import "dotenv/config";
 import { startStandaloneServer } from "@apollo/server/standalone";
 import resolvers from "./src/resolvers";
 import { getUser } from "./src/utils";
+import mongoose from "mongoose";
+import { mongoConnect } from "./mongoConnect";
 const typeDefs = readFileSync("./schema.graphql", { encoding: "utf-8" });
 const server = new ApolloServer({ typeDefs, resolvers });
 async function setup() {
@@ -31,7 +33,10 @@ async function setup() {
   });
   console.log(`🚀  Server ready at: ${url}`);
 }
-setup();
+mongoConnect().then(() => {
+  console.log("Connected to database");
+  return setup();
+});
 export interface MyContext {
   dataSources: {
     booksAPI: [];
