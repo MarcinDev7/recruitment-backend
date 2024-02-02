@@ -1,11 +1,11 @@
 import { ApolloServer } from "@apollo/server";
 import { readFileSync } from "fs";
+import "dotenv/config";
 
 import { startStandaloneServer } from "@apollo/server/standalone";
 import resolvers from "./src/resolvers";
 import { getUser } from "./src/utils";
 const typeDefs = readFileSync("./schema.graphql", { encoding: "utf-8" });
-
 const server = new ApolloServer({ typeDefs, resolvers });
 async function setup() {
   const { url } = await startStandaloneServer(server, {
@@ -27,7 +27,7 @@ async function setup() {
       // Add the user to the context
       return { user };
     },
-    listen: { port: 4000 },
+    listen: { port: Number(process.env.PORT) },
   });
   console.log(`🚀  Server ready at: ${url}`);
 }
