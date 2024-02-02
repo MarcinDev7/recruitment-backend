@@ -3,18 +3,21 @@ type Query {
 }
 
 type User {
-  id: ID!
+  _id: ID!
   name: String!
-  roles: [String]
+  role: String!
+  createdAt: String!
+  updatedAt: String!
 }
 
-type AddBookMutationResponse {
-  code: String!
-  success: Boolean!
-  message: String!
-  user: User
+type AccessLog {
+  _id: ID!
+  user: User!
+  action: String!
+  timestamp: String!
 }
 
 type Mutation {
-  addUser(name: String): AddUserMutationResponse
+  createUser(name: String!, role: String!): User
+  createAccessLog(userId: ID!, action: String!): AccessLog
 }
