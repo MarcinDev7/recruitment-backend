@@ -1,44 +1,48 @@
-import { ApolloServer } from "@apollo/server";
-import { readFileSync } from "fs";
+import { createServer } from "@graphql-yoga/node";
+import { loadSchema } from "@graphql-tools/load";
+import { GraphQLFileLoader } from "@graphql-tools/graphql-file-loader";
+import { addResolversToSchema } from "@graphql-tools/schema";
+import { stitchSchemas } from "@graphql-tools/stitch";
 import "dotenv/config";
 
-import { startStandaloneServer } from "@apollo/server/standalone";
-import resolvers from "./src/resolvers";
-import { getUser } from "./src/utils";
-import mongoose from "mongoose";
 import { mongoConnect } from "./mongoConnect";
-const typeDefs = readFileSync("./schema.graphql", { encoding: "utf-8" });
-const server = new ApolloServer({ typeDefs, resolvers });
-async function setup() {
-  const { url } = await startStandaloneServer(server, {
-    context: async ({ req, res }) => {
-      // Get the user token from the headers.
-      const token = req.headers.authorization || "";
+import mongoResolvers from "./src/datasources/mongo/resolvers";
+import dogFactsResolvers from "./src/datasources/dogFacts/resolvers";
 
-      // Try to retrieve a user with the token
-      const user = await getUser(token);
-      // if (!user)
-      // // throwing a `GraphQLError` here allows us to specify an HTTP status code,
-      // // standard `Error`s will have a 500 status code by default
-      // throw new GraphQLError('User is not authenticated', {
-      //   extensions: {
-      //     code: 'UNAUTHENTICATED',
-      //     http: { status: 401 },
-      //   },
-      // });
-      // Add the user to the context
-      return { user };
-    },
-    listen: { port: Number(process.env.PORT) },
+const dogFactsSchema = await loadSchema(
+  "./src/datasources/dogFacts/schema.graphql",
+  {
+    loaders: [new GraphQLFileLoader()],
+  }
+);
+const dogFactsSchemaWithResolvers = addResolversToSchema({
+  schema: dogFactsSchema,
+  resolvers: dogFactsResolvers,
+});
+
+const dogFactsSubschema = { schema: dogFactsSchemaWithResolvers };
+const mongoSchema = await loadSchema("./src/datasources/mongo/schema.graphql", {
+  loaders: [new GraphQLFileLoader()],
+});
+const mongoSchemaWithResolvers = addResolversToSchema({
+  schema: mongoSchema,
+  resolvers: mongoResolvers,
+});
+const mongoSubschema = { schema: mongoSchemaWithResolvers };
+const gatewaySchema = stitchSchemas({
+  subschemas: [mongoSubschema, dogFactsSubschema],
+});
+
+async function main() {
+  const server = createServer({
+    schema: gatewaySchema,
+    port: Number(process.env.PORT),
   });
-  console.log(`🚀  Server ready at: ${url}`);
+
+  await server.start();
 }
+
 mongoConnect().then(() => {
   console.log("Connected to database");
-  return setup();
+  return main();
 });
-// export interface MyContext {
-//   dataSources: {
-//     booksAPI: [];
-//   };
-// }

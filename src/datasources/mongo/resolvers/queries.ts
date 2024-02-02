@@ -1,4 +1,4 @@
-import { QueryResolvers } from "../generated/resolvers-types";
+import { QueryResolvers } from "../generated-types";
 import UserModel from "../models/Users";
 import AccessLogModel from "../models/AccessLogs";
 

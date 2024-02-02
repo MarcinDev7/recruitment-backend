@@ -1,4 +1,4 @@
-import { Resolvers } from "../generated/resolvers-types";
+import { Resolvers } from "../generated-types";
 import Mutations from "./mutations";
 import Queries from "./queries";
 const resolvers: Resolvers = {

@@ -1,4 +1,4 @@
-import { MutationResolvers } from "../generated/resolvers-types";
+import { MutationResolvers } from "../generated-types";
 import UserModel from "../models/Users";
 import AccessLogModel from "../models/AccessLogs";
 const Mutations: MutationResolvers = {

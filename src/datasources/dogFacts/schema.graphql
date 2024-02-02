@@ -1,0 +1,8 @@
+type Query {
+  dogFact: DogFact
+}
+
+type DogFact {
+  facts: String!
+  success: Boolean!
+}

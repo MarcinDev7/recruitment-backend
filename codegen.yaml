@@ -1,9 +1,9 @@
 # This configuration file tells GraphQL Code Generator how
 # to generate types based on our schema.
-schema: "./schema.graphql"
 generates:
   # Specify where our generated types should live.
-  ./src/generated/resolvers-types.ts:
+  ./src/datasources/mongo/generated-types.ts:
+    schema: "./src/datasources/mongo/schema.graphql"
     plugins:
       - "typescript"
       - "typescript-resolvers"
@@ -12,6 +12,17 @@ generates:
       # More on this below!
       # contextType: "../../server#MyContext"
       mappers:
-        User: import('../models/Users').User
-        AccessLog: import('../models/AccessLogs').AccessLog
+        User: import('./models/Users').User
+        AccessLog: import('./models/AccessLogs').AccessLog
         # AccessLogs:
+  ./src/datasources/dogImages/generated-types.ts:
+    schema: "./src/datasources/dogFacts/schema.graphql"
+    plugins:
+      - "typescript"
+      - "typescript-resolvers"
+    config:
+      # useIndexSignature: true
+      # More on this below!
+      # contextType: "../../server#MyContext"
+      # mappers:
+      #   DogFact: import('./queries').DogFact
