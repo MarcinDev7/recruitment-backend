@@ -1,7 +1,6 @@
 import UserModel from "../datasources/models/Users";
 import AccessLogModel from "../datasources/models/AccessLog";
-
-export const Queries = {
+const Mutations = {
   createUser: async (_, { name, role }) => {
     try {
       const user = new UserModel({
@@ -36,3 +35,5 @@ export const Queries = {
     }
   },
 };
+
+export default Mutations;

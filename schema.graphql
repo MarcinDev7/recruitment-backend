@@ -1,5 +1,11 @@
 type Query {
   users: [User]
+  accessLogs: [AccessLog]
+}
+
+type Mutation {
+  createUser(name: String!, role: String!): User
+  createAccessLog(userId: ID!, action: String!): AccessLog
 }
 
 type User {
@@ -15,9 +21,4 @@ type AccessLog {
   user: User!
   action: String!
   timestamp: String!
-}
-
-type Mutation {
-  createUser(name: String!, role: String!): User
-  createAccessLog(userId: ID!, action: String!): AccessLog
 }
