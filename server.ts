@@ -37,8 +37,8 @@ mongoConnect().then(() => {
   console.log("Connected to database");
   return setup();
 });
-export interface MyContext {
-  dataSources: {
-    booksAPI: [];
-  };
-}
+// export interface MyContext {
+//   dataSources: {
+//     booksAPI: [];
+//   };
+// }

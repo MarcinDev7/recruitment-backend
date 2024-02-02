@@ -1,15 +1,15 @@
-import UserModel from "../datasources/models/Users";
-import AccessLogModel from "../datasources/models/AccessLog";
-const Mutations = {
+import { MutationResolvers } from "../generated/resolvers-types";
+import UserModel from "../models/Users";
+import AccessLogModel from "../models/AccessLogs";
+const Mutations: MutationResolvers = {
   createUser: async (_, { name, role }) => {
     try {
-      const user = new UserModel({
+      const user = await UserModel.create({
         name,
         role,
         createdAt: new Date(),
         updatedAt: new Date(),
       });
-      await user.save();
       return user;
     } catch (error) {
       throw new Error(`Error creating user: ${error.message}`);

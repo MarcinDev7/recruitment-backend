@@ -8,6 +8,10 @@ generates:
       - "typescript"
       - "typescript-resolvers"
     config:
-      useIndexSignature: true
+      # useIndexSignature: true
       # More on this below!
-      contextType: "../../server#MyContext"
+      # contextType: "../../server#MyContext"
+      mappers:
+        User: import('../models/Users').User
+        AccessLog: import('../models/AccessLogs').AccessLog
+        # AccessLogs:
