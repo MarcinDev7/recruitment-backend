@@ -7,8 +7,6 @@ export const mongoConnect = (): Promise<void> => {
     mongoose
       .connect(connectionString)
       .then(() => {
-        mongoose.connection.db.admin().command({ ping: 1 });
-        console.log("mongoose.connection.db", mongoose.connection.db);
         console.log("Connected to the database");
         resolve();
       })

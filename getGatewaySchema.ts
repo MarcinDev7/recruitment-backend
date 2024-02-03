@@ -42,6 +42,8 @@ const mongoSchemaWithResolvers = addResolversToSchema({
 });
 const mongoSubschema = { schema: mongoSchemaWithResolvers };
 
-export const gatewaySchema = stitchSchemas({
-  subschemas: [mongoSubschema, dogFactsSubschema, dogImagesSubschema],
-});
+const getGatewaySchema = () =>
+  stitchSchemas({
+    subschemas: [mongoSubschema, dogFactsSubschema, dogImagesSubschema],
+  });
+export default getGatewaySchema;

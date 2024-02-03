@@ -3,13 +3,13 @@ import { createServer } from "@graphql-yoga/node";
 import "dotenv/config";
 
 import { mongoConnect } from "./mongoConnect";
-import { gatewaySchema } from "./getGatewaySchema";
+import getGatewaySchema from "./getGatewaySchema";
 
 async function main() {
   try {
     const server = createServer({
-      schema: gatewaySchema,
-      port: 4003,
+      schema: getGatewaySchema(),
+      port: Number(process.env.PORT) || 4000,
       context: {},
     });
 
@@ -21,7 +21,8 @@ async function main() {
 
 mongoConnect()
   .then(() => {
-    console.log("Connected to database");
-    return main();
+    return main().then(() => {
+      console.log("Server started on port: " + process.env.PORT);
+    });
   })
   .catch((error) => console.log("error", error));
