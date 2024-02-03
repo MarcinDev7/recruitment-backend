@@ -15,7 +15,7 @@ export type Scalars = {
 
 export type DogFact = {
   __typename?: 'DogFact';
-  facts: Scalars['String'];
+  facts: Array<Scalars['String']>;
   success: Scalars['Boolean'];
 };
 
@@ -94,7 +94,7 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
-  DogFact: ResolverTypeWrapper<DogFact>;
+  DogFact: ResolverTypeWrapper<import('./resolvers/queries').DogFact>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
 };
@@ -102,13 +102,13 @@ export type ResolversTypes = {
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Boolean: Scalars['Boolean'];
-  DogFact: DogFact;
+  DogFact: import('./resolvers/queries').DogFact;
   Query: {};
   String: Scalars['String'];
 };
 
 export type DogFactResolvers<ContextType = any, ParentType extends ResolversParentTypes['DogFact'] = ResolversParentTypes['DogFact']> = {
-  facts?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  facts?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   success?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };

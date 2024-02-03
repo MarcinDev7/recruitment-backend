@@ -1,15 +1,15 @@
 import { QueryResolvers } from "../generated-types";
 import fetch from "node-fetch";
-export type DogFact = {
-  success: boolean;
-  facts: string;
+export type DogImage = {
+  status: string;
+  message: string;
 };
 const Queries: QueryResolvers = {
-  dogFact: async () => {
+  dogImage: async () => {
     try {
-      const response = await fetch(process.env.DOG_FACTS_API_URL);
+      const response = await fetch(process.env.DOG_IMAGES_API_URL);
       const data = await response.json();
-      return data as DogFact;
+      return data as DogImage;
     } catch (error) {
       console.log("error", error);
     }

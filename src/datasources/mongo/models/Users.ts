@@ -16,5 +16,5 @@ const userSchema = new Schema({
   updatedAt: Date,
 });
 
-const UserModel = model<User>("User", userSchema);
+const UserModel = model<User>("users", userSchema, "Users");
 export default UserModel;

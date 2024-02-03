@@ -1,0 +1,9 @@
+type Query {
+  # dogImages: [DogImage]
+  dogImage: DogImage
+}
+
+type DogImage {
+  message: String!
+  status: String!
+}

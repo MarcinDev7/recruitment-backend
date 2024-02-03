@@ -15,7 +15,7 @@ generates:
         User: import('./models/Users').User
         AccessLog: import('./models/AccessLogs').AccessLog
         # AccessLogs:
-  ./src/datasources/dogImages/generated-types.ts:
+  ./src/datasources/dogFacts/generated-types.ts:
     schema: "./src/datasources/dogFacts/schema.graphql"
     plugins:
       - "typescript"
@@ -24,5 +24,16 @@ generates:
       # useIndexSignature: true
       # More on this below!
       # contextType: "../../server#MyContext"
-      # mappers:
-      #   DogFact: import('./queries').DogFact
+      mappers:
+        DogFact: import('./resolvers/queries').DogFact
+  ./src/datasources/dogImages/generated-types.ts:
+    schema: "./src/datasources/dogImages/schema.graphql"
+    plugins:
+      - "typescript"
+      - "typescript-resolvers"
+    config:
+      # useIndexSignature: true
+      # More on this below!
+      # contextType: "../../server#MyContext"
+      mappers:
+        DogImage: import('./resolvers/queries').DogImage

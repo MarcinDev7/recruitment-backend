@@ -13,15 +13,15 @@ export type Scalars = {
   Float: number;
 };
 
-export type DogFact = {
-  __typename?: 'DogFact';
-  facts: Scalars['String'];
-  success: Scalars['Boolean'];
+export type DogImage = {
+  __typename?: 'DogImage';
+  message: Scalars['String'];
+  status: Scalars['String'];
 };
 
 export type Query = {
   __typename?: 'Query';
-  dogFact?: Maybe<DogFact>;
+  dogImage?: Maybe<DogImage>;
 };
 
 
@@ -94,7 +94,7 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
-  DogFact: ResolverTypeWrapper<DogFact>;
+  DogImage: ResolverTypeWrapper<import('./resolvers/queries').DogImage>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
 };
@@ -102,23 +102,23 @@ export type ResolversTypes = {
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Boolean: Scalars['Boolean'];
-  DogFact: DogFact;
+  DogImage: import('./resolvers/queries').DogImage;
   Query: {};
   String: Scalars['String'];
 };
 
-export type DogFactResolvers<ContextType = any, ParentType extends ResolversParentTypes['DogFact'] = ResolversParentTypes['DogFact']> = {
-  facts?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  success?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+export type DogImageResolvers<ContextType = any, ParentType extends ResolversParentTypes['DogImage'] = ResolversParentTypes['DogImage']> = {
+  message?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  status?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  dogFact?: Resolver<Maybe<ResolversTypes['DogFact']>, ParentType, ContextType>;
+  dogImage?: Resolver<Maybe<ResolversTypes['DogImage']>, ParentType, ContextType>;
 };
 
 export type Resolvers<ContextType = any> = {
-  DogFact?: DogFactResolvers<ContextType>;
+  DogImage?: DogImageResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
 };
 
