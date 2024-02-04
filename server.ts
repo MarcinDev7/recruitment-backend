@@ -1,5 +1,5 @@
-import { createServer } from "@graphql-yoga/node";
-
+import { createYoga } from "graphql-yoga";
+import { createServer } from "http";
 import "dotenv/config";
 
 import { mongoConnect } from "./mongoConnect";
@@ -7,13 +7,14 @@ import getGatewaySchema from "./getGatewaySchema";
 
 async function main() {
   try {
-    const server = createServer({
+    const yoga = createYoga({
       schema: getGatewaySchema(),
-      port: Number(process.env.PORT) || 4000,
       context: {},
     });
 
-    await server.start();
+    const server = createServer(yoga);
+
+    await server.listen(Number(process.env.PORT) || 4000);
   } catch (error) {
     console.log("error", error);
   }
