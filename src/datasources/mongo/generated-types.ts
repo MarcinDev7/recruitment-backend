@@ -17,9 +17,18 @@ export type Scalars = {
 export type AccessLog = {
   __typename?: 'AccessLog';
   _id: Scalars['ID'];
-  action: Scalars['String'];
+  method: Scalars['String'];
+  path: Scalars['String'];
+  query: Scalars['String'];
+  statusCode: Scalars['Int'];
   timestamp: Scalars['String'];
-  user: User;
+  userId: Scalars['String'];
+};
+
+export type AuthenticationInfo = {
+  __typename?: 'AuthenticationInfo';
+  /** String that uniquely identifies an authenticated user. */
+  sub: Scalars['String'];
 };
 
 export type Mutation = {
@@ -43,6 +52,7 @@ export type MutationCreateUserArgs = {
 export type Query = {
   __typename?: 'Query';
   accessLogs?: Maybe<Array<Maybe<AccessLog>>>;
+  authInfo?: Maybe<AuthenticationInfo>;
   users?: Maybe<Array<Maybe<User>>>;
 };
 
@@ -125,8 +135,10 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   AccessLog: ResolverTypeWrapper<import('./models/AccessLogs').AccessLog>;
+  AuthenticationInfo: ResolverTypeWrapper<AuthenticationInfo>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
+  Int: ResolverTypeWrapper<Scalars['Int']>;
   Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
@@ -136,8 +148,10 @@ export type ResolversTypes = {
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   AccessLog: import('./models/AccessLogs').AccessLog;
+  AuthenticationInfo: AuthenticationInfo;
   Boolean: Scalars['Boolean'];
   ID: Scalars['ID'];
+  Int: Scalars['Int'];
   Mutation: {};
   Query: {};
   String: Scalars['String'];
@@ -146,9 +160,17 @@ export type ResolversParentTypes = {
 
 export type AccessLogResolvers<ContextType = any, ParentType extends ResolversParentTypes['AccessLog'] = ResolversParentTypes['AccessLog']> = {
   _id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  action?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  method?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  path?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  query?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  statusCode?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   timestamp?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+  userId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type AuthenticationInfoResolvers<ContextType = any, ParentType extends ResolversParentTypes['AuthenticationInfo'] = ResolversParentTypes['AuthenticationInfo']> = {
+  sub?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -159,6 +181,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   accessLogs?: Resolver<Maybe<Array<Maybe<ResolversTypes['AccessLog']>>>, ParentType, ContextType>;
+  authInfo?: Resolver<Maybe<ResolversTypes['AuthenticationInfo']>, ParentType, ContextType>;
   users?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType>;
 };
 
@@ -173,6 +196,7 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
 
 export type Resolvers<ContextType = any> = {
   AccessLog?: AccessLogResolvers<ContextType>;
+  AuthenticationInfo?: AuthenticationInfoResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   User?: UserResolvers<ContextType>;

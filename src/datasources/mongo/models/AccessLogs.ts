@@ -2,13 +2,23 @@ import mongoose from "mongoose";
 export interface AccessLog {
   _id: string;
   userId: string; // Assuming userId is a string, you can adjust it based on your actual setup
-  action: string;
+  method: string;
   timestamp: Date;
+  query: string;
+  statusCode: number;
+  path: string;
 }
 const accessLogSchema = new mongoose.Schema({
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-  action: String,
-  timestamp: Date,
+  userId: String!,
+  timestamp: Date!,
+  method: String!,
+  query: String!,
+  statusCode: Number!,
+  path: String!,
 });
-const AccessLogModel = mongoose.model<AccessLog>("AccessLog", accessLogSchema);
+const AccessLogModel = mongoose.model<AccessLog>(
+  "AccessLog",
+  accessLogSchema,
+  "AccessLogs"
+);
 export default AccessLogModel;

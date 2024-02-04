@@ -1,11 +1,19 @@
 type Query {
   users: [User]
   accessLogs: [AccessLog]
+  authInfo: AuthenticationInfo
 }
 
 type Mutation {
   createUser(name: String!, role: String!): User
   createAccessLog(userId: ID!, action: String!): AccessLog
+}
+
+type AuthenticationInfo {
+  """
+  String that uniquely identifies an authenticated user.
+  """
+  sub: String!
 }
 
 type User {
@@ -18,7 +26,10 @@ type User {
 
 type AccessLog {
   _id: ID!
-  user: User!
-  action: String!
   timestamp: String!
+  userId: String!
+  method: String!
+  query: String!
+  statusCode: Int!
+  path: String!
 }

@@ -1,4 +1,4 @@
-import mongoose, { Document } from "mongoose";
+import mongoose from "mongoose";
 const { Schema, model } = mongoose;
 
 export interface User {

@@ -2,6 +2,7 @@ import { QueryResolvers } from "../generated-types";
 import UserModel from "../models/Users";
 import AccessLogModel from "../models/AccessLogs";
 import mongoose from "mongoose";
+import { GraphQLError } from "graphql";
 
 const Queries: QueryResolvers = {
   users: async () => {
@@ -9,6 +10,24 @@ const Queries: QueryResolvers = {
 
     return data;
   },
-  accessLogs: async () => await AccessLogModel.find(),
+  accessLogs: async (_source, _args, context) => {
+    if (!context.auth0) {
+      throw new GraphQLError(
+        `User not found.`,
+        // error extensions
+        {
+          extensions: {
+            http: {
+              status: 401,
+            },
+          },
+        }
+      );
+    }
+    return await AccessLogModel.find();
+  },
+  authInfo(_source, _args, context) {
+    return context.auth0;
+  },
 };
 export default Queries;
