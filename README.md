@@ -6,7 +6,7 @@ If you are using vs code I would suggest using https://marketplace.visualstudio.
 
 ## Prerequisites
 
-- Node 16.20.1
+- Node 18.0.0
 - mongo credentials
 - Set up your own .env based on env-example (DB_PASSWORD AND DB_USERNAME IS NEEDED)
 
