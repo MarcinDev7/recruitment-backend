@@ -22,7 +22,8 @@ To maintain access logs, I developed a custom plugin responsible for writing log
 To fulfill the typescript criteria I've decided to use codegen to generate all the necessary graphql typing.
 Schema stitching is configured separately in the getGatewaySchema.ts file to ensure a modular and organized setup.
 
-Feedback
+### Feedback
+
 I must admit that this task can take a lot of time that people might not have. However, I decided to undertake it because I genuinely enjoy working with GraphQL, and I have fond memories from when I used it at a previous company. It's been a while since I built everything from scratch, so setting up the project took some time. From configuring types with Mongoose to choosing the right libraries and understanding how schema stitching works, there was a learning curve involved.
 I've decided to add generated types for each schema separately so it is included in separate directories. It seems easier to maintain.
 
