@@ -1,7 +1,6 @@
 import { QueryResolvers } from "../generated-types";
 import UserModel from "../models/Users";
 import AccessLogModel from "../models/AccessLogs";
-import mongoose from "mongoose";
 import { GraphQLError } from "graphql";
 
 const Queries: QueryResolvers = {
