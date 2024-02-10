@@ -31,8 +31,7 @@ node_modules/
 # Optional stylelint cache
 .stylelintcache
 
-package.json
-package-lock.json
+
 dist
 
 # dotenv environment variable files

@@ -1,0 +1,28 @@
+{
+  "name": "recruitment-backend",
+  "version": "1.0.0",
+  "description": "Backend app",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MarcinDev7/recruitment-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MarcinDev7/recruitment-backend/issues"
+  },
+  "homepage": "https://github.com/MarcinDev7/recruitment-backend#readme",
+  "dependencies": {
+    "@envelop/auth0": "^6.0.0",
+    "graphql": "^16.8.1",
+    "graphql-yoga": "^5.1.1",
+    "mongoose": "^8.1.1",
+    "node-fetch": "^3.3.2"
+  }
+}
