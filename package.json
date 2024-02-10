@@ -5,7 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "generate": "graphql-codegen --config codegen.yaml",
+    "compile": "npm run generate && tsc",
+    "start": "npm run compile && node --experimental-specifier-resolution=node ./dist/server.js"
   },
   "repository": {
     "type": "git",
@@ -20,9 +22,16 @@
   "homepage": "https://github.com/MarcinDev7/recruitment-backend#readme",
   "dependencies": {
     "@envelop/auth0": "^6.0.0",
+    "@graphql-tools/stitch": "^9.0.3",
     "graphql": "^16.8.1",
     "graphql-yoga": "^5.1.1",
     "mongoose": "^8.1.1",
     "node-fetch": "^3.3.2"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "^5.0.2",
+    "@graphql-codegen/typescript": "^4.0.4",
+    "@graphql-codegen/typescript-resolvers": "^4.0.4",
+    "typescript": "^5.3.3"
   }
 }

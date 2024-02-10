@@ -4,31 +4,33 @@ export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
+export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 export type RequireFields<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: string;
-  String: string;
-  Boolean: boolean;
-  Int: number;
-  Float: number;
+  ID: { input: string; output: string; }
+  String: { input: string; output: string; }
+  Boolean: { input: boolean; output: boolean; }
+  Int: { input: number; output: number; }
+  Float: { input: number; output: number; }
 };
 
 export type AccessLog = {
   __typename?: 'AccessLog';
-  _id: Scalars['ID'];
-  method: Scalars['String'];
-  path: Scalars['String'];
-  query: Scalars['String'];
-  statusCode: Scalars['Int'];
-  timestamp: Scalars['String'];
-  userId: Scalars['String'];
+  _id: Scalars['ID']['output'];
+  method: Scalars['String']['output'];
+  path: Scalars['String']['output'];
+  query: Scalars['String']['output'];
+  statusCode: Scalars['Int']['output'];
+  timestamp: Scalars['String']['output'];
+  userId: Scalars['String']['output'];
 };
 
 export type AuthenticationInfo = {
   __typename?: 'AuthenticationInfo';
   /** String that uniquely identifies an authenticated user. */
-  sub: Scalars['String'];
+  sub: Scalars['String']['output'];
 };
 
 export type Mutation = {
@@ -39,14 +41,14 @@ export type Mutation = {
 
 
 export type MutationCreateAccessLogArgs = {
-  action: Scalars['String'];
-  userId: Scalars['ID'];
+  action: Scalars['String']['input'];
+  userId: Scalars['ID']['input'];
 };
 
 
 export type MutationCreateUserArgs = {
-  name: Scalars['String'];
-  role: Scalars['String'];
+  name: Scalars['String']['input'];
+  role: Scalars['String']['input'];
 };
 
 export type Query = {
@@ -58,11 +60,11 @@ export type Query = {
 
 export type User = {
   __typename?: 'User';
-  _id: Scalars['ID'];
-  createdAt: Scalars['String'];
-  name: Scalars['String'];
-  role: Scalars['String'];
-  updatedAt: Scalars['String'];
+  _id: Scalars['ID']['output'];
+  createdAt: Scalars['String']['output'];
+  name: Scalars['String']['output'];
+  role: Scalars['String']['output'];
+  updatedAt: Scalars['String']['output'];
 };
 
 
@@ -132,16 +134,18 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
   info: GraphQLResolveInfo
 ) => TResult | Promise<TResult>;
 
+
+
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   AccessLog: ResolverTypeWrapper<import('./models/AccessLogs').AccessLog>;
   AuthenticationInfo: ResolverTypeWrapper<AuthenticationInfo>;
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
-  ID: ResolverTypeWrapper<Scalars['ID']>;
-  Int: ResolverTypeWrapper<Scalars['Int']>;
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
+  ID: ResolverTypeWrapper<Scalars['ID']['output']>;
+  Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
-  String: ResolverTypeWrapper<Scalars['String']>;
+  String: ResolverTypeWrapper<Scalars['String']['output']>;
   User: ResolverTypeWrapper<import('./models/Users').User>;
 };
 
@@ -149,12 +153,12 @@ export type ResolversTypes = {
 export type ResolversParentTypes = {
   AccessLog: import('./models/AccessLogs').AccessLog;
   AuthenticationInfo: AuthenticationInfo;
-  Boolean: Scalars['Boolean'];
-  ID: Scalars['ID'];
-  Int: Scalars['Int'];
+  Boolean: Scalars['Boolean']['output'];
+  ID: Scalars['ID']['output'];
+  Int: Scalars['Int']['output'];
   Mutation: {};
   Query: {};
-  String: Scalars['String'];
+  String: Scalars['String']['output'];
   User: import('./models/Users').User;
 };
 
